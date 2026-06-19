@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+*.pyc
+data/*.db
+models/*.joblib
+prints/*.png
+figures/*.png
+.DS_Store

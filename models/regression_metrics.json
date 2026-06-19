@@ -1,0 +1,19 @@
+{
+  "trained_at": "2026-06-19T22:51:26.381504+00:00",
+  "model": "RandomForestRegressor",
+  "target": "rendimento_t_ha",
+  "features": [
+    "umidade_solo",
+    "ph_solo",
+    "nitrogenio",
+    "fosforo",
+    "potassio",
+    "temperatura_c"
+  ],
+  "mae": 0.2527,
+  "mse": 0.1051,
+  "rmse": 0.3242,
+  "r2": 0.8727,
+  "rows_train": 350,
+  "rows_test": 150
+}
