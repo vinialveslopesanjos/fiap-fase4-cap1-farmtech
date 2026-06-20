@@ -220,35 +220,49 @@ def main() -> None:
         left, right = st.columns([1.35, 1])
         with left:
             st.subheader("Simulador de manejo")
-            row = {}
-            cols = st.columns(2)
-            for i, feat in enumerate(FEATURES):
-                default = float(filtered_df[feat].median())
-                min_value = float(df[feat].min())
-                max_value = float(df[feat].max())
-                step = 0.1 if feat != "umidade_solo" else 1.0
-                row[feat] = cols[i % 2].number_input(
-                    LABELS[feat],
-                    min_value=min_value,
-                    max_value=max_value,
-                    value=default,
-                    step=step,
-                )
+            st.caption("Ajuste os parametros do talhao e clique em simular para gerar uma nova recomendacao.")
+            with st.form("form_simulador_manejo"):
+                row = {}
+                cols = st.columns(2)
+                for i, feat in enumerate(FEATURES):
+                    default = float(filtered_df[feat].median())
+                    min_value = float(df[feat].min())
+                    max_value = float(df[feat].max())
+                    step = 0.1 if feat != "umidade_solo" else 1.0
+                    row[feat] = cols[i % 2].number_input(
+                        LABELS[feat],
+                        min_value=min_value,
+                        max_value=max_value,
+                        value=default,
+                        step=step,
+                    )
+                submitted = st.form_submit_button("Simular manejo", type="primary")
 
-        result = predict_yield(row)
+            if submitted:
+                st.session_state["simulacao_manejo"] = {
+                    "inputs": row,
+                    "result": predict_yield(row),
+                }
+
         with right:
-            st.subheader("Resultado em tempo real")
-            r1, r2 = st.columns(2)
-            r1.metric("Rendimento", f"{result['rendimento_previsto_t_ha']} t/ha")
-            r2.metric("Potencial", result["potencial_produtivo"].title())
-            r3, r4 = st.columns(2)
-            r3.metric("Irrigacao", f"{result['irrigacao_prevista_l']:.0f} L")
-            r4.metric("Fertilizacao", f"{result['fertilizacao_prevista_kg_ha']} kg/ha")
-            st.info(
-                f"Irrigacao {result['irrigacao_recomendada']} | "
-                f"Fertilizacao {result['fertilizacao_recomendada']}"
-            )
-            st.success(result["acao_manejo"])
+            st.subheader("Resultado da simulacao")
+            simulacao = st.session_state.get("simulacao_manejo")
+            if simulacao is None:
+                st.info("Preencha os parametros ao lado e clique em **Simular manejo**.")
+                st.caption("O resultado fica salvo aqui ate a proxima simulacao.")
+            else:
+                result = simulacao["result"]
+                r1, r2 = st.columns(2)
+                r1.metric("Rendimento", f"{result['rendimento_previsto_t_ha']} t/ha")
+                r2.metric("Potencial", result["potencial_produtivo"].title())
+                r3, r4 = st.columns(2)
+                r3.metric("Irrigacao", f"{result['irrigacao_prevista_l']:.0f} L")
+                r4.metric("Fertilizacao", f"{result['fertilizacao_prevista_kg_ha']} kg/ha")
+                st.info(
+                    f"Irrigacao {result['irrigacao_recomendada']} | "
+                    f"Fertilizacao {result['fertilizacao_recomendada']}"
+                )
+                st.success(result["acao_manejo"])
 
     with tab_corr:
         st.subheader("Analise interativa de correlacao")
