@@ -3,7 +3,7 @@
 **Turma 1TIAOA - Entrega individual**
 **Aluno:** Vinicius Anjos - RM 572814
 **Portal:** [assign 614328](https://on.fiap.com.br/mod/assign/view.php?id=614328)
-
+video: https://youtu.be/M3qzcHphM50?is=4l_wPRIBSpeIQLiG
 ## Visao geral
 
 Projeto desenvolvido para a Fase 4 da FIAP. A solucao simula leituras agricolas, grava os dados em SQLite, treina um pipeline de Machine Learning com Scikit-Learn e apresenta as previsoes em um dashboard Streamlit.
