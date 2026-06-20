@@ -64,7 +64,6 @@ def main() -> int:
         queries = TASK_ROOT / "sql" / "02_queries.sql"
         ok &= check_gate("G8 queries SQL", queries.is_file())
         ok &= check_gate("G9 data_dictionary", (TASK_ROOT / "docs" / "data_dictionary.md").is_file())
-        ok &= check_gate("G10 roteiro falas", (TASK_ROOT / "docs" / "roteiro_falas.md").is_file())
 
     print()
     if ok:

@@ -1,2 +1,1 @@
 PENDENTE: colar aqui o link do vídeo após gravação e upload.
-Sugestão: gravar usando docs/roteiro_falas.md e demonstrar o dashboard Streamlit.
