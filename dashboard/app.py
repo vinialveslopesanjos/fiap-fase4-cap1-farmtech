@@ -1,4 +1,4 @@
-"""Dashboard FarmTech Cap 1 — integração ML + Streamlit (Higor trunk, Igor polish)."""
+"""Dashboard FarmTech Cap 1 — integração ML + Streamlit."""
 
 from __future__ import annotations
 

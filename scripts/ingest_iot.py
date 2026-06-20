@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ingestão CSV → SQLite (IR ALÉM 1 — Humberto expande schema/queries)."""
+"""Ingestão CSV → SQLite (IR ALÉM 1)."""
 
 from __future__ import annotations
 

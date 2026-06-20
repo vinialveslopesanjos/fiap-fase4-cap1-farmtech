@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Treina regressão para prever rendimento agrícola (Cap 1 — Higor)."""
+"""Treina regressão para prever rendimento agrícola (Cap 1)."""
 
 from __future__ import annotations
 

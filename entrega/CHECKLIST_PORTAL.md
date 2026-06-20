@@ -1,17 +1,19 @@
-# Checklist — Portal Cap 1 (assign 614328)
+# Checklist de entrega — Cap 1 FarmTech
 
-> **Regra fixa:** vídeo e submissão no portal FIAP → sempre **Higor** (571820).
+- [ ] Entrega individual identificada como Vinicius Anjos — RM 572814
+- [ ] `python scripts/run_pipeline.py` executa sem erro
+- [ ] `python scripts/harness_check.py` executa sem erro
+- [ ] Dashboard abre com `streamlit run dashboard/app.py`
+- [ ] Vídeo de até 5 minutos gravado com demonstração do dashboard
+- [ ] Link do vídeo salvo em `link_video.txt`
+- [ ] Repositório público anexado no portal FIAP
+- [ ] Submissão feita no assign 614328
 
-- [ ] Grupo 36 com **Higor, Igor e Humberto** no portal
-- [ ] `python scripts/run_pipeline.py` — exit 0
-- [ ] `python scripts/harness_check.py` — todos OK
-- [ ] Vídeo ≤ 5 min gravado e link em `link_video.txt`
-- [ ] ZIP ou link conforme orientação do professor
-- [ ] Submissão em [assign 614328](https://on.fiap.com.br/mod/assign/view.php?id=614328) até **19/06/2026 23h59**
+## Conteúdo mínimo do vídeo
 
-## Conteúdo mínimo do vídeo (rubrica)
-
-1. Integração modelo + Streamlit
-2. Pipeline ML e bibliotecas usadas
-3. Métricas (MAE, MSE, RMSE, R²)
-4. Demo do dashboard funcionando
+1. Apresentar o objetivo do projeto.
+2. Mostrar o pipeline gerando dataset, SQLite e modelo.
+3. Mostrar o harness validando a entrega.
+4. Abrir o dashboard.
+5. Demonstrar previsão de rendimento e análise de correlação.
+6. Concluir com a aplicação prática para decisão de irrigação e manejo.

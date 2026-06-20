@@ -1,4 +1,4 @@
--- FarmTech Cap 1 — schema IoT (Humberto: expandir queries em 02_queries.sql)
+-- FarmTech Cap 1 — schema IoT
 CREATE TABLE IF NOT EXISTS leituras_sensores (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     data_hora TEXT NOT NULL,

@@ -1,4 +1,4 @@
--- FarmTech Cap 1 — 5 queries analíticas (Humberto)
+-- FarmTech Cap 1 — 5 queries analíticas
 -- Rodar após: python scripts/ingest_iot.py
 
 -- Q1: Contagem de leituras por talhão

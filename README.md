@@ -1,86 +1,100 @@
 # FarmTech Cap 1 — Memorizando e Aprendendo (Fase 4)
 
-**Turma 1TIAOA · Grupo 36** · Prazo **19/06/2026 23h59**  
+**Turma 1TIAOA · Entrega individual** · Prazo **19/06/2026 23h59**  
+**Aluno:** Vinicius Anjos · RM 572814  
 **Portal:** [assign 614328](https://on.fiap.com.br/mod/assign/view.php?id=614328)
-
-| Integrante | RM | Branch
-|------------|-----|--------|
-| Vinicius Anjos | 572814 | `f4-cap1-vinicius-integracao`
 
 ---
 
-## Setup
+## Visão geral
+
+Projeto individual desenvolvido para a Fase 4 da FIAP. A solução simula uma base de leituras agrícolas, grava os dados em SQLite, treina um modelo de regressão para prever rendimento e apresenta os resultados em um dashboard Streamlit.
+
+O objetivo é demonstrar, em um fluxo reproduzível, como dados de sensores podem apoiar decisões de irrigação e manejo na FarmTech Solutions.
+
+---
+
+## Setup local
 
 ```bash
-cd tasks/task11_fase4_cap1
-python3 -m venv .venv && source .venv/bin/activate
+git clone https://github.com/vinialveslopesanjos/fiap-fase4-cap1-farmtech.git
+cd fiap-fase4-cap1-farmtech
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Comandos por papel
+No Windows PowerShell:
 
-### Todos — validar ambiente
-
-```bash
-python scripts/run_pipeline.py      # dataset → SQLite → modelo
-python scripts/harness_check.py     # gates G1–G8
-streamlit run dashboard/app.py      # http://localhost:8501
+```powershell
+git clone https://github.com/vinialveslopesanjos/fiap-fase4-cap1-farmtech.git
+cd fiap-fase4-cap1-farmtech
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
 ```
 
-### Vini (`f4-cap1-higor-ml`)
+---
+
+## Rodar pipeline e dashboard
 
 ```bash
-python scripts/generate_dataset.py
-python ml/train_regression.py
-python scripts/harness_check.py --role Vini
+python scripts/run_pipeline.py
+python scripts/harness_check.py
+streamlit run dashboard/app.py
 ```
 
-Editar: `ml/`, `scripts/run_pipeline.py`, `dashboard/app.py` (trunk)
+Após o último comando, abrir no navegador:
 
-### Vini (`f4-cap1-igor-dash`)
-
-```bash
-# Não precisa rodar pipeline no PC leve — puxar main após Higor
-python scripts/harness_check.py --role Vini
-streamlit run dashboard/app.py   # se a máquina aguentar; senão só figures/
+```text
+http://localhost:8501
 ```
 
-Editar: `dashboard/components/`, `figures/`, `prints/`
+---
 
-### Humberto (`f4-cap1-humberto-dados`)
+## O que o projeto entrega
 
-```bash
-python scripts/ingest_iot.py
-python scripts/harness_check.py --role Vini
-```
-
-Editar: `sql/`, `scripts/ingest_iot.py` — **sem** vídeo/portal (Vini)
+1. Geração de dataset sintético de sensores agrícolas.
+2. Ingestão dos dados em banco SQLite.
+3. Treinamento de modelo de regressão supervisionada.
+4. Métricas do modelo em `models/regression_metrics.json`.
+5. Dashboard Streamlit com previsão, análise de correlação e indicadores.
+6. Scripts de validação para checar os artefatos antes da entrega.
 
 ---
 
 ## Estrutura
 
-```
-task11_fase4_cap1/
+```text
+fiap-fase4-cap1-farmtech/
 ├── README.md
 ├── REPRODUCE.md
 ├── requirements.txt
-├── scripts/          # pipeline + harness
-├── ml/               # train + predict
-├── dashboard/        # Streamlit
-├── data/             # CSV + SQLite (gerados)
-├── models/           # joblib + metrics.json
-├── sql/
-├── figures/          # Vini — PNGs para vídeo
-├── prints/
-└── entrega/
+├── scripts/          # pipeline, geração de dados, ingestão e validação
+├── ml/               # treino e predição do modelo
+├── dashboard/        # aplicação Streamlit
+├── data/             # CSV e SQLite gerados pelo pipeline
+├── models/           # modelo treinado e métricas
+├── sql/              # schema e consultas SQL
+├── figures/          # imagens auxiliares
+├── prints/           # evidências visuais
+└── entrega/          # checklist de entrega
 ```
 
 ---
 
-### Vini — vídeo + portal
+## Roteiro sugerido para o vídeo
 
-- Gravar vídeo → `link_video.txt`
-- Submeter assign 614328 — ver `entrega/CHECKLIST_PORTAL.md`
+1. Mostrar rapidamente o repositório e explicar que é uma entrega individual.
+2. Rodar `python scripts/run_pipeline.py` para gerar dados, SQLite e modelo.
+3. Rodar `python scripts/harness_check.py` para validar os arquivos.
+4. Abrir o dashboard com `streamlit run dashboard/app.py`.
+5. Demonstrar a aba de previsão, alterando os inputs e clicando em “Prever rendimento”.
+6. Mostrar os indicadores e gráficos de correlação.
+7. Concluir explicando como o modelo apoia decisões de irrigação e manejo.
 
-Enunciado: `docs/validation/captures/fases/fase4/tasks/task01_cap_1_.../`
+---
+
+## Reprodução rápida
+
+Também existe um passo a passo resumido em [`REPRODUCE.md`](REPRODUCE.md).

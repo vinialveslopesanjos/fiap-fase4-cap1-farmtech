@@ -29,14 +29,14 @@ def check_gate(name: str, ok: bool, detail: str = "") -> bool:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--role", choices=["higor", "igor", "humberto", "all"], default="all")
+    parser.add_argument("--role", choices=["all"], default="all")
     args = parser.parse_args()
 
     print("Harness Cap 1 — gates\n")
     ok = True
 
-    if args.role in ("all", "higor"):
-        print("Higor (ML + pipeline):")
+    if args.role == "all":
+        print("Pipeline e modelo:")
         ok &= check_gate("G1 dataset", DEFAULT_CSV.is_file(), str(DEFAULT_CSV))
         ok &= check_gate("G2 modelo", MODEL_PATH.is_file())
         if METRICS_JSON.is_file():
@@ -45,20 +45,20 @@ def main() -> int:
         else:
             ok &= check_gate("G3 métricas", False, "rode run_pipeline.py")
 
-    if args.role in ("all", "igor"):
-        print("\nIgor (dashboard):")
+    if args.role == "all":
+        print("\nDashboard:")
         ok &= check_gate("G4 dashboard/app.py", DASHBOARD_APP.is_file())
         figures = TASK_ROOT / "figures"
         ok &= check_gate("G5 figures/ (opcional)", figures.is_dir(), "criar PNGs se PC leve")
 
-    if args.role in ("all", "higor"):
-        print("\nHigor (entrega):")
+    if args.role == "all":
+        print("\nEntrega:")
         video = TASK_ROOT / "link_video.txt"
         ok &= check_gate("G9 link_video.txt", video.is_file(), "preencher antes do portal")
         ok &= check_gate("G8 checklist portal", (TASK_ROOT / "entrega" / "CHECKLIST_PORTAL.md").is_file())
 
-    if args.role in ("all", "humberto"):
-        print("\nHumberto (SQL):")
+    if args.role == "all":
+        print("\nSQL e dados:")
         ok &= check_gate("G6 schema SQL", SCHEMA_SQL.is_file())
         ok &= check_gate("G7 SQLite", DEFAULT_DB.is_file(), "rode ingest_iot.py")
         queries = TASK_ROOT / "sql" / "02_queries.sql"
