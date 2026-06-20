@@ -58,8 +58,9 @@ http://localhost:8501
 2. Ingestão dos dados em banco SQLite.
 3. Treinamento de modelo de regressão supervisionada.
 4. Métricas do modelo em `models/regression_metrics.json`.
-5. Dashboard Streamlit com previsão, análise de correlação e indicadores.
-6. Scripts de validação para checar os artefatos antes da entrega.
+5. Dashboard Streamlit com previsão, análise de correlação, tendência de produtividade e indicadores.
+6. Recomendação de irrigação, manejo e fertilização a partir dos inputs agrícolas.
+7. Scripts de validação para checar os artefatos antes da entrega.
 
 ---
 

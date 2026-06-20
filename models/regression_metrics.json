@@ -1,5 +1,5 @@
 {
-  "trained_at": "2026-06-20T01:13:11.249291+00:00",
+  "trained_at": "2026-06-20T02:03:24.911396+00:00",
   "model": "RandomForestRegressor",
   "target": "rendimento_t_ha",
   "features": [
