@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS leituras_sensores (
     potassio REAL,
     temperatura_c REAL,
     rendimento_t_ha REAL,
-    irrigacao_sugerida_l REAL
+    irrigacao_sugerida_l REAL,
+    fertilizacao_sugerida_kg_ha REAL
 );
 
 CREATE INDEX IF NOT EXISTS idx_leituras_talhao ON leituras_sensores(talhao_id);

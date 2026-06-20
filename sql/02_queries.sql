@@ -22,7 +22,12 @@ ORDER BY data_hora DESC
 LIMIT 20;
 
 -- Q4: Top 10 maiores rendimentos registrados
-SELECT data_hora, talhao_id, rendimento_t_ha, umidade_solo, nitrogenio
+SELECT data_hora,
+       talhao_id,
+       rendimento_t_ha,
+       umidade_solo,
+       nitrogenio,
+       fertilizacao_sugerida_kg_ha
 FROM leituras_sensores
 ORDER BY rendimento_t_ha DESC
 LIMIT 10;

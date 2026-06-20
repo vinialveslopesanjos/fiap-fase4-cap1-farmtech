@@ -1,18 +1,20 @@
-# FarmTech Cap 1 — Memorizando e Aprendendo (Fase 4)
+# FarmTech Cap 1 - Memorizando e Aprendendo com os Dados
 
-**Turma 1TIAOA · Entrega individual** · Prazo **19/06/2026 23h59**  
-**Aluno:** Vinicius Anjos · RM 572814  
+**Turma 1TIAOA - Entrega individual**
+**Aluno:** Vinicius Anjos - RM 572814
 **Portal:** [assign 614328](https://on.fiap.com.br/mod/assign/view.php?id=614328)
 
----
+## Visao geral
 
-## Visão geral
+Projeto desenvolvido para a Fase 4 da FIAP. A solucao simula leituras agricolas, grava os dados em SQLite, treina um pipeline de Machine Learning com Scikit-Learn e apresenta as previsoes em um dashboard Streamlit.
 
-Projeto individual desenvolvido para a Fase 4 da FIAP. A solução simula uma base de leituras agrícolas, grava os dados em SQLite, treina um modelo de regressão para prever rendimento e apresenta os resultados em um dashboard Streamlit.
+O assistente agricola inteligente usa regressao supervisionada para prever:
 
-O objetivo é demonstrar, em um fluxo reproduzível, como dados de sensores podem apoiar decisões de irrigação e manejo na FarmTech Solutions.
+1. rendimento esperado em toneladas por hectare;
+2. volume sugerido de irrigacao;
+3. necessidade estimada de fertilizacao.
 
----
+Com isso, o dashboard apoia decisoes de irrigacao, fertilizacao e manejo do solo para gestores agricolas.
 
 ## Setup local
 
@@ -34,8 +36,6 @@ py -m venv .venv
 pip install -r requirements.txt
 ```
 
----
-
 ## Rodar pipeline e dashboard
 
 ```bash
@@ -44,58 +44,46 @@ python scripts/harness_check.py
 streamlit run dashboard/app.py
 ```
 
-Após o último comando, abrir no navegador:
+Depois abra:
 
 ```text
 http://localhost:8501
 ```
 
----
-
 ## O que o projeto entrega
 
-1. Geração de dataset sintético de sensores agrícolas.
-2. Ingestão dos dados em banco SQLite.
-3. Treinamento de modelo de regressão supervisionada.
-4. Métricas do modelo em `models/regression_metrics.json`.
-5. Dashboard Streamlit com previsão, análise de correlação, tendência de produtividade e indicadores.
-6. Recomendação de irrigação, manejo e fertilização a partir dos inputs agrícolas.
-7. Scripts de validação para checar os artefatos antes da entrega.
-
----
+1. Geracao de dataset sintetico de sensores agricolas.
+2. Ingestao dos dados em banco SQLite.
+3. Treinamento de modelo de regressao multi-saida.
+4. Metricas MAE, MSE, RMSE e R2 por alvo em `models/regression_metrics.json`.
+5. Dashboard Streamlit com previsoes, correlacoes, tendencias e recomendacoes de manejo.
+6. Notebook e HTML de apoio para o video em `entrega/farmtech_analise_video.*`.
+7. Scripts de validacao para checar os artefatos antes da entrega.
 
 ## Estrutura
 
 ```text
 fiap-fase4-cap1-farmtech/
-├── README.md
-├── REPRODUCE.md
-├── requirements.txt
-├── scripts/          # pipeline, geração de dados, ingestão e validação
-├── ml/               # treino e predição do modelo
-├── dashboard/        # aplicação Streamlit
-├── data/             # CSV e SQLite gerados pelo pipeline
-├── models/           # modelo treinado e métricas
-├── sql/              # schema e consultas SQL
-├── figures/          # imagens auxiliares
-├── prints/           # evidências visuais
-└── entrega/          # checklist de entrega
+|-- README.md
+|-- REPRODUCE.md
+|-- requirements.txt
+|-- scripts/      # pipeline, geracao de dados, ingestao, validacao e notebook
+|-- ml/           # treino e predicao do modelo
+|-- dashboard/    # aplicacao Streamlit
+|-- data/         # CSV e SQLite gerados pelo pipeline
+|-- models/       # modelo treinado e metricas
+|-- sql/          # schema e consultas SQL
+|-- figures/      # imagens auxiliares
+`-- entrega/      # checklist, notebook e HTML de apoio
 ```
 
----
+## Roteiro sugerido para o video
 
-## Roteiro sugerido para o vídeo
-
-1. Mostrar rapidamente o repositório e explicar que é uma entrega individual.
-2. Rodar `python scripts/run_pipeline.py` para gerar dados, SQLite e modelo.
-3. Rodar `python scripts/harness_check.py` para validar os arquivos.
-4. Abrir o dashboard com `streamlit run dashboard/app.py`.
-5. Demonstrar a aba de previsão, alterando os inputs e clicando em “Prever rendimento”.
-6. Mostrar os indicadores e gráficos de correlação.
-7. Concluir explicando como o modelo apoia decisões de irrigação e manejo.
-
----
-
-## Reprodução rápida
-
-Também existe um passo a passo resumido em [`REPRODUCE.md`](REPRODUCE.md).
+1. Mostrar o objetivo do projeto e o fluxo sensores -> SQLite -> modelo -> dashboard.
+2. Rodar `python scripts/run_pipeline.py`.
+3. Rodar `python scripts/harness_check.py`.
+4. Abrir `streamlit run dashboard/app.py`.
+5. Demonstrar a aba de previsao alterando umidade, pH e nutrientes.
+6. Mostrar rendimento, irrigacao, fertilizacao e recomendacoes de manejo.
+7. Mostrar correlacao, tendencias e metricas do modelo.
+8. Opcional: abrir `entrega/farmtech_analise_video.html` para explicar os graficos em tela cheia.

@@ -1,7 +1,12 @@
 {
-  "trained_at": "2026-06-20T02:03:24.911396+00:00",
-  "model": "RandomForestRegressor",
+  "trained_at": "2026-06-20T02:24:49.992238+00:00",
+  "model": "RandomForestRegressor multi-output",
   "target": "rendimento_t_ha",
+  "targets": [
+    "rendimento_t_ha",
+    "irrigacao_sugerida_l",
+    "fertilizacao_sugerida_kg_ha"
+  ],
   "features": [
     "umidade_solo",
     "ph_solo",
@@ -10,10 +15,30 @@
     "potassio",
     "temperatura_c"
   ],
-  "mae": 0.2527,
-  "mse": 0.1051,
-  "rmse": 0.3242,
-  "r2": 0.8727,
+  "mae": 0.302,
+  "mse": 0.1509,
+  "rmse": 0.3885,
+  "r2": 0.8172,
+  "target_metrics": {
+    "rendimento_t_ha": {
+      "mae": 0.302,
+      "mse": 0.1509,
+      "rmse": 0.3885,
+      "r2": 0.8172
+    },
+    "irrigacao_sugerida_l": {
+      "mae": 35.3931,
+      "mse": 1886.6249,
+      "rmse": 43.4353,
+      "r2": 0.8693
+    },
+    "fertilizacao_sugerida_kg_ha": {
+      "mae": 6.8791,
+      "mse": 73.3869,
+      "rmse": 8.5666,
+      "r2": 0.6367
+    }
+  },
   "rows_train": 350,
   "rows_test": 150
 }

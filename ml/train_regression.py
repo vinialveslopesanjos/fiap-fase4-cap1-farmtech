@@ -31,6 +31,11 @@ FEATURES = [
     "temperatura_c",
 ]
 TARGET = "rendimento_t_ha"
+TARGETS = [
+    "rendimento_t_ha",
+    "irrigacao_sugerida_l",
+    "fertilizacao_sugerida_kg_ha",
+]
 
 
 def train(csv_path: Path = DEFAULT_CSV, model_path: Path = MODEL_PATH) -> dict:
@@ -39,7 +44,7 @@ def train(csv_path: Path = DEFAULT_CSV, model_path: Path = MODEL_PATH) -> dict:
 
     df = pd.read_csv(csv_path)
     X = df[FEATURES]
-    y = df[TARGET]
+    y = df[TARGETS]
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.3, random_state=42
     )
@@ -53,23 +58,34 @@ def train(csv_path: Path = DEFAULT_CSV, model_path: Path = MODEL_PATH) -> dict:
     pipeline.fit(X_train, y_train)
     preds = pipeline.predict(X_test)
 
-    mae = float(mean_absolute_error(y_test, preds))
-    mse = float(mean_squared_error(y_test, preds))
-    rmse = float(mse**0.5)
-    r2 = float(r2_score(y_test, preds))
+    mae_values = mean_absolute_error(y_test, preds, multioutput="raw_values")
+    mse_values = mean_squared_error(y_test, preds, multioutput="raw_values")
+    rmse_values = mse_values**0.5
+    r2_values = r2_score(y_test, preds, multioutput="raw_values")
+    target_metrics = {
+        target: {
+            "mae": round(float(mae_values[i]), 4),
+            "mse": round(float(mse_values[i]), 4),
+            "rmse": round(float(rmse_values[i]), 4),
+            "r2": round(float(r2_values[i]), 4),
+        }
+        for i, target in enumerate(TARGETS)
+    }
 
     MODELS_DIR.mkdir(parents=True, exist_ok=True)
     joblib.dump(pipeline, model_path)
 
     metrics = {
         "trained_at": datetime.now(timezone.utc).isoformat(),
-        "model": "RandomForestRegressor",
+        "model": "RandomForestRegressor multi-output",
         "target": TARGET,
+        "targets": TARGETS,
         "features": FEATURES,
-        "mae": round(mae, 4),
-        "mse": round(mse, 4),
-        "rmse": round(rmse, 4),
-        "r2": round(r2, 4),
+        "mae": target_metrics[TARGET]["mae"],
+        "mse": target_metrics[TARGET]["mse"],
+        "rmse": target_metrics[TARGET]["rmse"],
+        "r2": target_metrics[TARGET]["r2"],
+        "target_metrics": target_metrics,
         "rows_train": len(X_train),
         "rows_test": len(X_test),
     }

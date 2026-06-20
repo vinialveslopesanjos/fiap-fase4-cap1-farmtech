@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ingestão CSV → SQLite (IR ALÉM 1)."""
+"""Ingestao CSV -> SQLite."""
 
 from __future__ import annotations
 
@@ -32,15 +32,16 @@ def ingest(csv_path: Path = DEFAULT_CSV, db_path: Path = DEFAULT_DB) -> int:
             potassio REAL,
             temperatura_c REAL,
             rendimento_t_ha REAL,
-            irrigacao_sugerida_l REAL
+            irrigacao_sugerida_l REAL,
+            fertilizacao_sugerida_kg_ha REAL
         );
         """
 
     df = pd.read_csv(csv_path)
     conn = sqlite3.connect(db_path)
     try:
+        conn.execute("DROP TABLE IF EXISTS leituras_sensores")
         conn.executescript(schema)
-        conn.execute("DELETE FROM leituras_sensores")
         df.to_sql("leituras_sensores", conn, if_exists="append", index=False)
         conn.commit()
         count = conn.execute("SELECT COUNT(*) FROM leituras_sensores").fetchone()[0]
@@ -52,7 +53,7 @@ def ingest(csv_path: Path = DEFAULT_CSV, db_path: Path = DEFAULT_DB) -> int:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Ingestão IoT → SQLite")
+    parser = argparse.ArgumentParser(description="Ingestao IoT -> SQLite")
     parser.add_argument("--csv", type=Path, default=DEFAULT_CSV)
     parser.add_argument("--db", type=Path, default=DEFAULT_DB)
     args = parser.parse_args()

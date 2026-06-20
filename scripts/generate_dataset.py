@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Gera CSV simulado de sensores agrícolas para regressão (Cap 1 Fase 4)."""
+"""Gera CSV simulado de sensores agricolas para regressao."""
 
 from __future__ import annotations
 
@@ -20,7 +20,7 @@ def generate_dataset(rows: int = 500, seed: int = 42) -> pd.DataFrame:
     fosforo = rng.uniform(5, 80, rows)
     potassio = rng.uniform(20, 200, rows)
     temperatura = rng.uniform(15, 38, rows)
-    # Rendimento sintético com relação interpretável
+
     rendimento = (
         2.5
         + 0.04 * umidade
@@ -31,6 +31,13 @@ def generate_dataset(rows: int = 500, seed: int = 42) -> pd.DataFrame:
         + rng.normal(0, 0.25, rows)
     )
     irrigacao_litros = np.clip(800 - 6 * umidade + rng.normal(0, 40, rows), 50, 1200)
+    deficit_npk = (
+        np.maximum(0, 75 - nitrogenio) * 0.55
+        + np.maximum(0, 45 - fosforo) * 0.45
+        + np.maximum(0, 120 - potassio) * 0.18
+    )
+    ajuste_ph = np.where((ph < 5.5) | (ph > 7.2), 8, 0)
+    fertilizacao_kg_ha = np.clip(deficit_npk + ajuste_ph + rng.normal(0, 3, rows), 0, 80)
 
     return pd.DataFrame(
         {
@@ -44,6 +51,7 @@ def generate_dataset(rows: int = 500, seed: int = 42) -> pd.DataFrame:
             "temperatura_c": np.round(temperatura, 1),
             "rendimento_t_ha": np.round(rendimento, 2),
             "irrigacao_sugerida_l": np.round(irrigacao_litros, 0),
+            "fertilizacao_sugerida_kg_ha": np.round(fertilizacao_kg_ha, 1),
         }
     )
 
@@ -56,12 +64,12 @@ def main() -> int:
     args = parser.parse_args()
 
     if args.rows < MIN_DATASET_ROWS:
-        raise SystemExit(f"Mínimo {MIN_DATASET_ROWS} linhas (enunciado pede volume útil).")
+        raise SystemExit(f"Minimo {MIN_DATASET_ROWS} linhas (volume util para regressao).")
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     df = generate_dataset(rows=args.rows, seed=args.seed)
     df.to_csv(args.output, index=False)
-    print(f"[ok] {len(df)} linhas → {args.output.relative_to(TASK_ROOT)}")
+    print(f"[ok] {len(df)} linhas -> {args.output.relative_to(TASK_ROOT)}")
     return 0
 
 
