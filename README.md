@@ -3,18 +3,13 @@
 **Turma 1TIAOA · Grupo 36** · Prazo **19/06/2026 23h59**  
 **Portal:** [assign 614328](https://on.fiap.com.br/mod/assign/view.php?id=614328)
 
-| Integrante | RM | Branch | Parte |
-|------------|-----|--------|-------|
-| Vinicius Anjos | 572814 | `f4-cap1-vinicius-integracao` | Revisão final + gravação do vídeo |
-| Higor Henrique Garcia | 571820 | `f4-cap1-higor-ml` | ML + pipeline + **vídeo + portal** |
-| Igor | 572822 | `f4-cap1-igor-dash` | Dashboard UI + figuras |
-| Humberto | 570536 | `f4-cap1-humberto-dados` | SQL IoT (IR ALÉM) |
-
-**Harness (comece aqui):** [`specs/task11_fase4_cap1/HARNESS_GRUPO.md`](../../specs/task11_fase4_cap1/HARNESS_GRUPO.md)
+| Integrante | RM | Branch
+|------------|-----|--------|
+| Vinicius Anjos | 572814 | `f4-cap1-vinicius-integracao`
 
 ---
 
-## Setup (qualquer integrante)
+## Setup
 
 ```bash
 cd tasks/task11_fase4_cap1
@@ -32,21 +27,21 @@ python scripts/harness_check.py     # gates G1–G8
 streamlit run dashboard/app.py      # http://localhost:8501
 ```
 
-### Higor (`f4-cap1-higor-ml`)
+### Vini (`f4-cap1-higor-ml`)
 
 ```bash
 python scripts/generate_dataset.py
 python ml/train_regression.py
-python scripts/harness_check.py --role higor
+python scripts/harness_check.py --role Vini
 ```
 
 Editar: `ml/`, `scripts/run_pipeline.py`, `dashboard/app.py` (trunk)
 
-### Igor (`f4-cap1-igor-dash`)
+### Vini (`f4-cap1-igor-dash`)
 
 ```bash
 # Não precisa rodar pipeline no PC leve — puxar main após Higor
-python scripts/harness_check.py --role igor
+python scripts/harness_check.py --role Vini
 streamlit run dashboard/app.py   # se a máquina aguentar; senão só figures/
 ```
 
@@ -56,10 +51,10 @@ Editar: `dashboard/components/`, `figures/`, `prints/`
 
 ```bash
 python scripts/ingest_iot.py
-python scripts/harness_check.py --role humberto
+python scripts/harness_check.py --role Vini
 ```
 
-Editar: `sql/`, `scripts/ingest_iot.py` — **sem** vídeo/portal (Higor)
+Editar: `sql/`, `scripts/ingest_iot.py` — **sem** vídeo/portal (Vini)
 
 ---
 
@@ -76,14 +71,14 @@ task11_fase4_cap1/
 ├── data/             # CSV + SQLite (gerados)
 ├── models/           # joblib + metrics.json
 ├── sql/
-├── figures/          # Igor — PNGs para vídeo
+├── figures/          # Vini — PNGs para vídeo
 ├── prints/
 └── entrega/
 ```
 
 ---
 
-### Higor — vídeo + portal
+### Vini — vídeo + portal
 
 - Gravar vídeo → `link_video.txt`
 - Submeter assign 614328 — ver `entrega/CHECKLIST_PORTAL.md`
